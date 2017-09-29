@@ -14,8 +14,8 @@
 <h1>YAKA</h1>
 
 <fieldset>
-<legend><b>Choisissez un produit</b></legend>
-
+<legend><b>Choisissez un produit</b></legend>  
+ 
 <c:set var="produits" value="${requestScope['listeProduits']}" />
 
 <ul>
