@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+	version="2.0">
+	
+	<access>FIELD</access> <!-- utilisation ou des setters (PROPERTY) des classes des entités -->
+		
+	<named-query name="getAllCategories">
+		<query>select c from Categorie as c order by c.id</query>
+	</named-query>
+
+	<named-query name="getAllSousCategories">
+		<query>select sc from Sous_Categorie as sc order by sc.id</query>
+	</named-query>
+	
+	<named-query name="getSousCategoriesByCategorieId">
+		<query>select sc from Sous_Categorie as sc where sc.categId.id = :id order by sc.id</query>
+	</named-query>	
+	
+	<named-query name="getProduitsbySousCategorieId">
+		<query>select p from Produits as p where p.sousCateg.id = :id order by p.id</query>
+	</named-query>
+
+	<named-query name="getProduitbyId">
+		<query>select p from Produits as p where p.id = :id</query>
+	</named-query>
+	
+	<named-query name="getProprietesbyProduitId">
+		<query>
+			select prop from Proprietes as prop where prop.id in
+				(select car.proprieteId.id from Caracteristiques as car where car.produitId.id = :id )
+				order by prop.id		
+		</query>
+	</named-query>
+	
+	<named-query name="getCaracteristiquesbyProprieteId">
+		<query>
+			select car from Caracteristiques as car where car.proprieteId.id = :idProp and car.produitId.id = :idProd order by car.id					
+		</query>
+	</named-query>	
+	
+	<entity class="be.steformations.it.yaka.beans.CategorieImpl" name="Categorie">
+		<table name="categories" />
+		<attributes>
+			<id name="id"><column name="cat_id"/></id>
+			<basic name="nom"><column name="cat_nom"/></basic>
+			<basic name="stat"><column name="cat_stat"/></basic>
+		</attributes>
+	</entity>
+	
+	<entity class="be.steformations.it.yaka.beans.SousCategorieImpl" name="Sous_Categorie">
+		<table name="sous_categories" />
+		<attributes>
+			<id name="id"><column name="sscat_id"/></id>
+			<basic name="nom"><column name="sscat_nom"/></basic>
+			<basic name="stat"><column name="sscat_stat"/></basic>
+			<many-to-one name="categId"><join-column name="sscat_fk_categories"/></many-to-one>
+		</attributes>
+	</entity>
+	
+	<entity class="be.steformations.it.yaka.beans.ProduitImpl" name="Produits">
+		<table name="produits" />
+		<attributes>
+			<id name="id"><column name="prod_id"/></id>
+			<basic name="nom"><column name="prod_nom"/></basic>
+			<basic name="vignette"><column name="prod_vignette"/></basic>
+			<basic name="image"><column name="prod_image"/></basic>
+			<basic name="descCourte"><column name="prod_descr_courte"/></basic>
+			<basic name="descLongue"><column name="prod_descr_longue"/></basic>
+			<basic name="stat"><column name="prod_stat"/></basic>
+			<many-to-one name="sousCateg"><join-column name="prod_fk_sous_categories"/></many-to-one>
+		</attributes>
+	</entity>
+	
+	<entity class="be.steformations.it.yaka.beans.ProprieteImpl" name="Proprietes">
+		<table name="proprietes" />
+		<attributes>
+			<id name="id"><column name="prop_id"/></id>
+			<basic name="nom"><column name="prop_nom"/></basic>
+		</attributes>
+	</entity>	
+	
+	<entity class="be.steformations.it.yaka.beans.CaracteristiqueImpl" name="Caracteristiques">
+		<table name="caracteristiques" />
+		<attributes>
+			<id name="id"><column name="car_id"/></id>
+			<basic name="valeur"><column name="car_valeur"/></basic>
+			<many-to-one name="proprieteId"><join-column name="car_fk_proprietes"/></many-to-one>
+			<many-to-one name="produitId"><join-column name="car_fk_produits"/></many-to-one>
+			<many-to-many name="article" mapped-by="caracteristiques"></many-to-many>
+		</attributes>
+	</entity>	
+
+	<entity class="be.steformations.it.yaka.beans.ArticleImpl" name="Articles">
+		<table name="prix" />
+		<attributes>
+			<id name="id"><column name="pri_id"/></id>
+			<basic name="prixHtva"><column name="pri_htva_euro"/></basic>
+			<many-to-many name="caracteristiques"> 
+	  			<join-table name="combinaisons">
+	  				<join-column name="com_fk_prix"/>
+	  				<inverse-join-column name="com_fk_caracteristiques"/>
+	  			</join-table>	  			
+	  		</many-to-many>
+		</attributes>
+	</entity>	
+	
+</entity-mappings>
