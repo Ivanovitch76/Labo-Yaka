@@ -37,21 +37,31 @@
 	<c:choose>
 		<c:when test="${fn:length(prop) > 1 }">
 			<h3>Vous pouvez configurer votre produit</h3>
-			<c:forEach items="${prop}" var="p">
+			<c:forEach items="${prop}" var="pr">
 				<li>
-					<c:out value="${p.prop.nom}" /> 
+					<c:out value="${pr.prop.nom}" /> 
 					<select name="caracteristiques">
-						<c:forEach var="c" items="${p.carac}">
+						<c:forEach var="c" items="${pr.carac}">
 							<option value="${c.id}"><c:out value="${c.valeur}" /></option>
 						</c:forEach>
 					</select>
 				</li>
 			</c:forEach>
+			<c:if test="${fn:length(p.sousProduits) > 0 }">
+				<h3>Sous-produits disponibles</h3>
+				<c:forEach items="${p.sousProduits}" var="sp">
+					<li>
+						<a href="${pageContext.request.contextPath}/spring/sousProduit?ssprodId=${sp.id}">	
+							<c:out value="${sp.nom}"/>
+						</a>
+					</li>
+				</c:forEach>
+			</c:if>
 		</c:when>
 		<c:otherwise>
 			<c:forEach items="${prop}" var="p">
 				<li>
-					<h3><c:out value="${p.prop.nom}" /></h3> 
+					<h3><c:out value="${pr.prop.nom}" /></h3> 
 				</li>
 			</c:forEach>
 		</c:otherwise>

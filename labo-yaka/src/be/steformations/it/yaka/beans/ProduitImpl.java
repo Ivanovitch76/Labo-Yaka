@@ -12,6 +12,7 @@ public class ProduitImpl {
 	private String descLongue;
 	private Integer stat;
 	private SousCategorieImpl sousCateg;
+	private List<ProduitImpl> sousProduits;
 //	private List<CaracteristiqueImpl> caracteristiques;
 	
 	public ProduitImpl() {
@@ -83,6 +84,8 @@ public class ProduitImpl {
 		this.sousCateg = sousCateg;
 	}
 	
+	
+	
 //	public List<CaracteristiqueImpl> getCaracteristiques() {
 //		return caracteristiques;
 //	}
@@ -92,17 +95,25 @@ public class ProduitImpl {
 //	}
 
 
+	public List<ProduitImpl> getSousProduits() {
+		return sousProduits;
+	}
+
+	public void setSousProduits(List<ProduitImpl> sousProduits) {
+		this.sousProduits = sousProduits;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-//		result = prime * result + ((caracteristiques == null) ? 0 : caracteristiques.hashCode());
 		result = prime * result + ((descCourte == null) ? 0 : descCourte.hashCode());
 		result = prime * result + ((descLongue == null) ? 0 : descLongue.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((image == null) ? 0 : image.hashCode());
 		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
 		result = prime * result + ((sousCateg == null) ? 0 : sousCateg.hashCode());
+		result = prime * result + ((sousProduits == null) ? 0 : sousProduits.hashCode());
 		result = prime * result + ((stat == null) ? 0 : stat.hashCode());
 		result = prime * result + ((vignette == null) ? 0 : vignette.hashCode());
 		return result;
@@ -117,11 +128,6 @@ public class ProduitImpl {
 		if (getClass() != obj.getClass())
 			return false;
 		ProduitImpl other = (ProduitImpl) obj;
-//		if (caracteristiques == null) {
-//			if (other.caracteristiques != null)
-//				return false;
-//		} else if (!caracteristiques.equals(other.caracteristiques))
-//			return false;
 		if (descCourte == null) {
 			if (other.descCourte != null)
 				return false;
@@ -152,6 +158,11 @@ public class ProduitImpl {
 				return false;
 		} else if (!sousCateg.equals(other.sousCateg))
 			return false;
+		if (sousProduits == null) {
+			if (other.sousProduits != null)
+				return false;
+		} else if (!sousProduits.equals(other.sousProduits))
+			return false;
 		if (stat == null) {
 			if (other.stat != null)
 				return false;
@@ -168,10 +179,11 @@ public class ProduitImpl {
 	@Override
 	public String toString() {
 		return "ProduitImpl [id=" + id + ", nom=" + nom + ", vignette=" + vignette + ", image=" + image
-				+ ", descCourte=" + descCourte + ", descLongue=" + descLongue + ", stat=" + stat + ", sousCategId="
-//				+ sousCategId + ", caracteristiques=" + caracteristiques + "]";
-				+ sousCateg + "]";
+				+ ", descCourte=" + descCourte + ", descLongue=" + descLongue + ", stat=" + stat + ", sousCateg="
+				+ sousCateg + ", sousProduits=" + sousProduits + "]";
 	}
+
+
 
 	
 	

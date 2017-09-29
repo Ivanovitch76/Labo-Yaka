@@ -70,6 +70,12 @@
 			<basic name="descLongue"><column name="prod_descr_longue"/></basic>
 			<basic name="stat"><column name="prod_stat"/></basic>
 			<many-to-one name="sousCateg"><join-column name="prod_fk_sous_categories"/></many-to-one>
+			<many-to-many name="sousProduits">
+				<join-table name="relations">
+					<join-column name="rel_fk_produits_princ"/>
+					<inverse-join-column name="ref_fk_produits_sec"/>
+				</join-table>
+			</many-to-many>
 		</attributes>
 	</entity>
 	

@@ -51,11 +51,24 @@ public class ProduitCtrl {
 		}		
 		attributs.put("afficheUnProduit", gestionnaire.getProduitbyId(prodId));
 		attributs.put("afficherProprietes", carByProp);
-		attributs.put("afficherPrix", afficherPrix());
+//		attributs.put("afficherPrix", afficherPrix());
 //		attributs.put("afficherProprietes", gestionnaire.getProprietesbyProduitId(prodId));
 
 		return "/detailProduit.jsp";
 	}	
+	
+	@org.springframework.web.bind.annotation.RequestMapping("sousProduit")
+	public void configSousProduit(
+			@org.springframework.web.bind.annotation.RequestParam("ssprodId") String id,
+			java.util.Map<String, Object> attributs
+			){
+		int ssprodId = Integer.parseInt(id);
+		System.out.println("ProduitCtrl.configSousProduit");
+		//TO DO faire la recherche des carac du sous-produit avant de faire l'appel à afficherProduit
+		
+	}
+	
+	
 	
 	public String afficherPrix(){
 		return null;
