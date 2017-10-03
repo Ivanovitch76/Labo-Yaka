@@ -17,14 +17,13 @@
 <legend><b>Détail du produit</b></legend>
 
 <c:set var="p" value="${requestScope['afficheUnProduit']}" />
+
 <ul>
 	<li>
 		<h2><c:out value="${p.nom}"/></h2> 
 	</li>
 	<li>	
-		<a href="${pageContext.request.contextPath}/spring/detailProduit?prodId=${p.id}">	
-			<img alt="${p.nom}" src="${pageContext.request.contextPath}/images/${p.image}"/>	
-		</a>
+		<img alt="${p.nom}" src="${pageContext.request.contextPath}/images/${p.image}"/>	
 	</li>
 	<li>		
 		<c:out escapeXml="false" value="${p.descLongue}"/> 									
@@ -34,45 +33,79 @@
 <br/>
 
 <c:set var="prop" value="${requestScope['afficherProprietes']}"/>
-	<c:choose>
-		<c:when test="${fn:length(prop) > 1 }">
-			<h3>Vous pouvez configurer votre produit</h3>
-			<c:forEach items="${prop}" var="pr">
-				<li>
-					<c:out value="${pr.prop.nom}" /> 
-					<select name="caracteristiques">
-						<c:forEach var="c" items="${pr.carac}">
-							<option value="${c.id}"><c:out value="${c.valeur}" /></option>
-						</c:forEach>
-					</select>
-				</li>
-			</c:forEach>
-			<c:if test="${fn:length(p.sousProduits) > 0 }">
-				<h3>Sous-produits disponibles</h3>
-				<c:forEach items="${p.sousProduits}" var="sp">
-					<li>
-						<a href="${pageContext.request.contextPath}/spring/sousProduit?ssprodId=${sp.id}">	
-							<c:out value="${sp.nom}"/>
-						</a>
-					</li>
-				</c:forEach>
-			</c:if>
-		</c:when>
-		<c:otherwise>
-			<c:forEach items="${prop}" var="p">
-				<li>
-					<h3><c:out value="${pr.prop.nom}" /></h3> 
-				</li>
-			</c:forEach>
-		</c:otherwise>
-	</c:choose>
-<br/>
+	<form action="${pageContext.request.contextPath}/spring/panier"
+		method="post">
+		<input type="hidden" name="valid" value="${p.id}" />
+<!-- 		<h3>Vous pouvez configurer votre produit :</h3> -->
 
-<form action="${pageContext.request.contextPath}/spring/valider" method="post">
-	<input type="hidden"  name="valid" value="${p.id}"/>
-	<input type="submit" value="ajouter au panier"/> 
-</form>	
-<br/>
+		<c:forEach items="${prop}" var="pr">
+			<li>	
+				<c:out value="${pr.prop.nom}" /> 
+<%-- 				<c:choose> --%>
+<%-- 					<c:when test="${pr.prop.id == 1}"> --%>
+<!-- 						<select name="dimensions"> -->
+<%-- 							<c:forEach var="c" items="${pr.carac}"> --%>
+<%-- 								<option value="${c.id}"><c:out value="${c.valeur}" /></option> --%>
+<%-- 							</c:forEach> --%>
+<!-- 						</select> -->
+<%-- 					</c:when> --%>
+<%-- 					<c:when test="${pr.prop.id == 3}"> --%>
+<!-- 						<select name="largeur"> -->
+<%-- 							<c:forEach var="c" items="${pr.carac}"> --%>
+<%-- 								<option value="${c.id}"><c:out value="${c.valeur}" /></option> --%>
+<%-- 							</c:forEach> --%>
+<!-- 						</select> -->
+<%-- 					</c:when> --%>
+<%-- 					<c:when test="${pr.prop.id == 4}"> --%>
+<!-- 						<select name="hauteur"> -->
+<%-- 							<c:forEach var="c" items="${pr.carac}"> --%>
+<%-- 								<option value="${c.id}"><c:out value="${c.valeur}" /></option> --%>
+<%-- 							</c:forEach> --%>
+<!-- 						</select> -->
+<%-- 					</c:when> --%>
+<%-- 					<c:when test="${pr.prop.id == 5}"> --%>
+<!-- 						<select name="profondeur"> -->
+<%-- 							<c:forEach var="c" items="${pr.carac}"> --%>
+<%-- 								<option value="${c.id}"><c:out value="${c.valeur}" /></option> --%>
+<%-- 							</c:forEach> --%>
+<!-- 						</select> -->
+<%-- 					</c:when> --%>
+<%-- 					<c:when test="${pr.prop.id == 6}"> --%>
+<!-- 						<select name="revet"> -->
+<%-- 							<c:forEach var="c" items="${pr.carac}"> --%>
+<%-- 								<option value="${c.id}"><c:out value="${c.valeur}" /></option> --%>
+<%-- 							</c:forEach> --%>
+<!-- 						</select> -->
+<%-- 					</c:when> --%>
+						<select name="caracteristiques">
+							<c:forEach var="c" items="${pr.carac}">
+								<option value="${c.id}"><c:out value="${c.valeur}" /></option>
+							</c:forEach>
+						</select>					
+<%-- 				</c:choose> --%>
+			</li>
+		</c:forEach>
+		<c:if test="${fn:length(p.sousProduits) > 0 }">
+			<h3>Sous-produits disponibles</h3>
+			<c:forEach items="${p.sousProduits}" var="sp">
+				<fieldset>
+					<ul>
+						<li><b><c:out value="${sp.nom}" /></b></li>
+						<li><a
+							href="${pageContext.request.contextPath}/spring/sousProduit?ssprodId=${sp.id}">
+								<img alt="$s{p.nom}"
+								src="${pageContext.request.contextPath}/images/${sp.vignette}" />
+						</a></li>
+						<li><c:out value="${sp.descCourte}" /></li>
+					</ul>
+				</fieldset>
+			</c:forEach>
+		</c:if>
+
+		<br /> <input type="hidden" name="valid2" value="${c.id}" /> <input
+			type="submit" value="Ajouter au panier" />
+	</form>
+	<br/>
 
 <div class="content"><a href="${pageContext.request.contextPath}/spring/categories">Retour à la page d'accueil</a></div>
 </body>

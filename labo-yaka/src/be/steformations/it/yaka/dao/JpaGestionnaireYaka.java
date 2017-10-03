@@ -1,5 +1,6 @@
 package be.steformations.it.yaka.dao;
 
+import be.steformations.it.yaka.beans.ArticleImpl;
 import be.steformations.it.yaka.beans.CaracteristiqueImpl;
 import be.steformations.it.yaka.beans.CategorieImpl;
 import be.steformations.it.yaka.beans.ProduitImpl;
@@ -99,9 +100,16 @@ public class JpaGestionnaireYaka {
 		return this.em.createNamedQuery("getProprietesbyProduitId", ProprieteImpl.class).setParameter("id", id).getResultList();
 	}
 
+//	public java.util.List<ProprieteImpl> getDistinctProprietesByProduitId(int id){
+//		System.out.println("JpaGestionnaireYaka.getProprietesbyProduitId()");
+//		return this.em.createNamedQuery("getProprietesbyProduitId", ProprieteImpl.class).setParameter("id", id).getResultList();
+//	}
+	
 	public java.util.List<CaracteristiqueImpl> getCaracteristiquesbyProprieteId(int idProp, int idProd){
 		System.out.println("JpaGestionnaireYaka.getCaracteristiquesbyProprieteId()");
 		return this.em.createNamedQuery("getCaracteristiquesbyProprieteId", CaracteristiqueImpl.class).setParameter("idProp", idProp).setParameter("idProd", idProd).getResultList();
 	}
+	
+
 	
 }

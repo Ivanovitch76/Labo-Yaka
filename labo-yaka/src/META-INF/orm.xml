@@ -38,7 +38,13 @@
 		<query>
 			select car from Caracteristiques as car where car.proprieteId.id = :idProp and car.produitId.id = :idProd order by car.id					
 		</query>
-	</named-query>	
+	</named-query>
+	
+<!-- 	<named-query name="getDistinctProprietesByProduitId"> -->
+<!-- 		<query> -->
+<!-- 			select distinct car.proprieteId.id from Caracteristiques as car where car.produitId.id = :id -->
+<!-- 		</query> -->
+<!-- 	</named-query> -->
 	
 	<entity class="be.steformations.it.yaka.beans.CategorieImpl" name="Categorie">
 		<table name="categories" />
@@ -94,7 +100,12 @@
 			<basic name="valeur"><column name="car_valeur"/></basic>
 			<many-to-one name="proprieteId"><join-column name="car_fk_proprietes"/></many-to-one>
 			<many-to-one name="produitId"><join-column name="car_fk_produits"/></many-to-one>
-			<many-to-many name="article" mapped-by="caracteristiques"></many-to-many>
+			<many-to-many name="article"> 
+	  			<join-table name="combinaisons">
+	  				<join-column name="com_fk_caracteristiques"/>
+	  				<inverse-join-column name="com_fk_prix"/>
+	  			</join-table>	  			
+	  		</many-to-many>
 		</attributes>
 	</entity>	
 
@@ -103,12 +114,7 @@
 		<attributes>
 			<id name="id"><column name="pri_id"/></id>
 			<basic name="prixHtva"><column name="pri_htva_euro"/></basic>
-			<many-to-many name="caracteristiques"> 
-	  			<join-table name="combinaisons">
-	  				<join-column name="com_fk_prix"/>
-	  				<inverse-join-column name="com_fk_caracteristiques"/>
-	  			</join-table>	  			
-	  		</many-to-many>
+			<many-to-many name="caracteristiques" mapped-by="article"></many-to-many>
 		</attributes>
 	</entity>	
 	
