@@ -40,11 +40,13 @@
 		</query>
 	</named-query>
 	
-<!-- 	<named-query name="getDistinctProprietesByProduitId"> -->
-<!-- 		<query> -->
-<!-- 			select distinct car.proprieteId.id from Caracteristiques as car where car.produitId.id = :id -->
-<!-- 		</query> -->
-<!-- 	</named-query> -->
+	<named-query name="getPrixbyCaracteristiquesId">
+		<query>
+			select prix from Articles as prix join prix.caracteristiques as c where c.id in :carId
+			group by prix.id
+			having count(prix.id) = :number 
+		</query>
+	</named-query>
 	
 	<entity class="be.steformations.it.yaka.beans.CategorieImpl" name="Categorie">
 		<table name="categories" />
@@ -115,6 +117,9 @@
 			<id name="id"><column name="pri_id"/></id>
 			<basic name="prixHtva"><column name="pri_htva_euro"/></basic>
 			<many-to-many name="caracteristiques" mapped-by="article"></many-to-many>
+			<transient name="produit"/>
+			<transient name="quantite"/>
+			<transient name="somme"/>
 		</attributes>
 	</entity>	
 	

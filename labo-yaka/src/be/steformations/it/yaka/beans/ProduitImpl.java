@@ -83,17 +83,6 @@ public class ProduitImpl {
 	public void setSousCateg(SousCategorieImpl sousCateg) {
 		this.sousCateg = sousCateg;
 	}
-	
-	
-	
-//	public List<CaracteristiqueImpl> getCaracteristiques() {
-//		return caracteristiques;
-//	}
-//
-//	public void setCaracteristiques(List<CaracteristiqueImpl> caracteristiques) {
-//		this.caracteristiques = caracteristiques;
-//	}
-
 
 	public List<ProduitImpl> getSousProduits() {
 		return sousProduits;
@@ -102,6 +91,7 @@ public class ProduitImpl {
 	public void setSousProduits(List<ProduitImpl> sousProduits) {
 		this.sousProduits = sousProduits;
 	}
+
 
 	@Override
 	public int hashCode() {
@@ -183,9 +173,5 @@ public class ProduitImpl {
 				+ sousCateg + ", sousProduits=" + sousProduits + "]";
 	}
 
-
-
-	
-	
 	
 }

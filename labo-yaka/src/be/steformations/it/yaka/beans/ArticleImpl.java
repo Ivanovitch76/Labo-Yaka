@@ -7,6 +7,9 @@ public class ArticleImpl {
 	private Integer id;
 	private float prixHtva;
 	private List<CaracteristiqueImpl> caracteristiques;
+	private ProduitImpl produit;
+	private Integer quantite;
+	private float somme;
 	
 	public ArticleImpl() {
 		super();
@@ -37,6 +40,32 @@ public class ArticleImpl {
 		this.caracteristiques = caracteristiques;
 	}
 
+	public ProduitImpl getProduit() {
+		return produit;
+	}
+
+	public void setProduit(ProduitImpl produit) {
+		this.produit = produit;
+	}
+
+	
+	
+	public Integer getQuantite() {
+		return quantite;
+	}
+
+	public void setQuantite(Integer quantite) {
+		this.quantite = quantite;
+	}
+
+	public float getSomme() {
+		return somme;
+	}
+
+	public void setSomme(float somme) {
+		this.somme = somme;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -44,6 +73,7 @@ public class ArticleImpl {
 		result = prime * result + ((caracteristiques == null) ? 0 : caracteristiques.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + Float.floatToIntBits(prixHtva);
+		result = prime * result + ((produit == null) ? 0 : produit.hashCode());
 		return result;
 	}
 
@@ -68,14 +98,18 @@ public class ArticleImpl {
 			return false;
 		if (Float.floatToIntBits(prixHtva) != Float.floatToIntBits(other.prixHtva))
 			return false;
+		if (produit == null) {
+			if (other.produit != null)
+				return false;
+		} else if (!produit.equals(other.produit))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "ArticleImpl [id=" + id + ", prixHtva=" + prixHtva + ", caracteristiques=" + caracteristiques + "]";
+		return "ArticleImpl [id=" + id + ", prixHtva=" + prixHtva + ", caracteristiques=" + caracteristiques
+				+ ", produit=" + produit + "]";
 	}
-	
-	
-	
+		
 }

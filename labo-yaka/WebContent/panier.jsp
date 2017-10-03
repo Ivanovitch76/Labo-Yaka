@@ -14,12 +14,38 @@
 <h1>YAKA</h1> 
 
 <fieldset>
+
+<c:set var="liste" value="${requestScope['liste']}"/>
 <legend><b>Vos commandes :</b></legend>
-
-
+	<ul>
+		<c:forEach var="l" items="${liste}">
+			<li>
+				<b><c:out value="${l.produit.nom}"/></b>
+				<img alt="${l.produit.nom}" src="${pageContext.request.contextPath}/images/${l.produit.vignette}"/>	
+				<br/>
+				Caractéristiques : 
+				<c:forEach var="c" items="${l.caracteristiques}">
+					<c:out value="${c.proprieteId.nom}"/>
+					<c:if test="${c.proprieteId.id != 2}">
+					<span>=</span>
+					<c:out value="${c.valeur}"/>
+					</c:if>
+				</c:forEach>
+				
+				<br/>
+				Prix unitaire: <b><c:out value="${l.prixHtva}"/></b>
+				Quantité: <b><c:out value="${l.quantite}"/></b>	
+				Prix total: <b><c:out value="${l.somme}"/></b>	
+				<br/>
+				<input type="button" value="Modifier"/>
+				<input type="submit" value="Retirer"/>
+			</li>
+			<br/>
+		</c:forEach>
+	</ul>
 </fieldset>
 
 
-<div class="content"><a href="${pageContext.request.contextPath}/spring/categories">Retour à la page d'accueil</a></div>
+<div class="content"><a href="${pageContext.request.contextPath}/spring/categories">Continuer mes achats</a></div>
 </body>
 </html>

@@ -1,5 +1,7 @@
 package be.steformations.it.yaka.dao;
 
+import java.util.List;
+
 import be.steformations.it.yaka.beans.ArticleImpl;
 import be.steformations.it.yaka.beans.CaracteristiqueImpl;
 import be.steformations.it.yaka.beans.CategorieImpl;
@@ -7,7 +9,6 @@ import be.steformations.it.yaka.beans.ProduitImpl;
 import be.steformations.it.yaka.beans.ProprieteImpl;
 import be.steformations.it.yaka.beans.SousCategorieImpl;
 @org.springframework.stereotype.Service
-
 @org.springframework.context.annotation.Scope("application")
 public class JpaGestionnaireYaka {
 
@@ -110,6 +111,9 @@ public class JpaGestionnaireYaka {
 		return this.em.createNamedQuery("getCaracteristiquesbyProprieteId", CaracteristiqueImpl.class).setParameter("idProp", idProp).setParameter("idProd", idProd).getResultList();
 	}
 	
-
+	public ArticleImpl getPrixbyCaracteristiquesId (List<Integer> carId, int number){
+		System.out.println("JpaGestionnaireYaka.getPrixbyCaracteristiquesId()");
+		return this.em.createNamedQuery("getPrixbyCaracteristiquesId", ArticleImpl.class).setParameter("carId", carId).setParameter("number", number).getSingleResult();
+	}
 	
 }

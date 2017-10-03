@@ -95,8 +95,4 @@ public class ProduitCtrl {
 	}
 	
 	
-	public String afficherPrix(){
-		return null;
-	}
-	
 }

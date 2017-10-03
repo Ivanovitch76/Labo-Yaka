@@ -41,50 +41,22 @@
 		<c:forEach items="${prop}" var="pr">
 			<li>	
 				<c:out value="${pr.prop.nom}" /> 
-<%-- 				<c:choose> --%>
-<%-- 					<c:when test="${pr.prop.id == 1}"> --%>
-<!-- 						<select name="dimensions"> -->
-<%-- 							<c:forEach var="c" items="${pr.carac}"> --%>
-<%-- 								<option value="${c.id}"><c:out value="${c.valeur}" /></option> --%>
-<%-- 							</c:forEach> --%>
-<!-- 						</select> -->
-<%-- 					</c:when> --%>
-<%-- 					<c:when test="${pr.prop.id == 3}"> --%>
-<!-- 						<select name="largeur"> -->
-<%-- 							<c:forEach var="c" items="${pr.carac}"> --%>
-<%-- 								<option value="${c.id}"><c:out value="${c.valeur}" /></option> --%>
-<%-- 							</c:forEach> --%>
-<!-- 						</select> -->
-<%-- 					</c:when> --%>
-<%-- 					<c:when test="${pr.prop.id == 4}"> --%>
-<!-- 						<select name="hauteur"> -->
-<%-- 							<c:forEach var="c" items="${pr.carac}"> --%>
-<%-- 								<option value="${c.id}"><c:out value="${c.valeur}" /></option> --%>
-<%-- 							</c:forEach> --%>
-<!-- 						</select> -->
-<%-- 					</c:when> --%>
-<%-- 					<c:when test="${pr.prop.id == 5}"> --%>
-<!-- 						<select name="profondeur"> -->
-<%-- 							<c:forEach var="c" items="${pr.carac}"> --%>
-<%-- 								<option value="${c.id}"><c:out value="${c.valeur}" /></option> --%>
-<%-- 							</c:forEach> --%>
-<!-- 						</select> -->
-<%-- 					</c:when> --%>
-<%-- 					<c:when test="${pr.prop.id == 6}"> --%>
-<!-- 						<select name="revet"> -->
-<%-- 							<c:forEach var="c" items="${pr.carac}"> --%>
-<%-- 								<option value="${c.id}"><c:out value="${c.valeur}" /></option> --%>
-<%-- 							</c:forEach> --%>
-<!-- 						</select> -->
-<%-- 					</c:when> --%>
+					<c:choose>
+					<c:when test="${pr.prop.id != 2 }">
 						<select name="caracteristiques">
 							<c:forEach var="c" items="${pr.carac}">
 								<option value="${c.id}"><c:out value="${c.valeur}" /></option>
 							</c:forEach>
-						</select>					
-<%-- 				</c:choose> --%>
+						</select>	
+					</c:when>	
+					<c:otherwise>
+						<input type="hidden" name="caracteristiques" value="${pr.carac[0].id}"/> 					
+					</c:otherwise>
+					</c:choose>				
 			</li>
 		</c:forEach>
+		Quantité souhaitée: <input type="text" name="quantite"  />
+		
 		<c:if test="${fn:length(p.sousProduits) > 0 }">
 			<h3>Sous-produits disponibles</h3>
 			<c:forEach items="${p.sousProduits}" var="sp">
