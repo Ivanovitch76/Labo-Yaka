@@ -31,7 +31,7 @@ public class ProduitCtrl {
 			){
 		int ssCatId = Integer.parseInt(id);
 		System.out.println("ProduitCtrl.listeProduits(" + ssCatId + ")");
-		gestionnaire.addStatSousCategorie(ssCatId);
+//		gestionnaire.addStatSousCategorie(ssCatId);
 		attributs.put("listeProduits", gestionnaire.getProduitsbySousCategorieId(ssCatId));
 		return "/produit.jsp";
 	}
@@ -43,8 +43,6 @@ public class ProduitCtrl {
 			){
 		int prodId = Integer.parseInt(id);
 		System.out.println("ProduitCtrl.afficherProduit(" + prodId + ")");
-		
-//		gestionnaire.addStatProduit(prodId);	
 		
 		List<CaracByProprietes> carByProp = new ArrayList<>();
 	
@@ -72,7 +70,7 @@ public class ProduitCtrl {
 	
 	private List<CaracByProprietes> listeCaracteristiques(int idp){
 		System.out.println("ProduitCtrl.afficherProduit(" + idp + ")");
-		gestionnaire.addStatProduit(idp);	
+//		gestionnaire.addStatProduit(idp);	
 		List<CaracByProprietes> carByProp = new ArrayList<>();
 		for (ProprieteImpl prop : gestionnaire.getProprietesbyProduitId(idp)){
 			System.out.println("ProduitCtrl propId= " + gestionnaire.getProprietesbyProduitId(idp));

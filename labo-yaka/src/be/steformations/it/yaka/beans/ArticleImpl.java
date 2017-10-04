@@ -73,7 +73,6 @@ public class ArticleImpl {
 		result = prime * result + ((caracteristiques == null) ? 0 : caracteristiques.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + Float.floatToIntBits(prixHtva);
-		result = prime * result + ((produit == null) ? 0 : produit.hashCode());
 		return result;
 	}
 
@@ -98,18 +97,16 @@ public class ArticleImpl {
 			return false;
 		if (Float.floatToIntBits(prixHtva) != Float.floatToIntBits(other.prixHtva))
 			return false;
-		if (produit == null) {
-			if (other.produit != null)
-				return false;
-		} else if (!produit.equals(other.produit))
-			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "ArticleImpl [id=" + id + ", prixHtva=" + prixHtva + ", caracteristiques=" + caracteristiques
-				+ ", produit=" + produit + "]";
+		return "ArticleImpl [id=" + id + ", prixHtva=" + prixHtva + ", caracteristiques=" + caracteristiques + "]";
 	}
+
+
+
+
 		
 }

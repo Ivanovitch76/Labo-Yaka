@@ -13,10 +13,11 @@
 
 <h1>YAKA</h1> 
 
-<fieldset>
 
-<c:set var="liste" value="${requestScope['liste']}"/>
-<legend><b>Vos commandes :</b></legend>
+	<fieldset>
+
+	<c:set var="liste" value="${requestScope['liste']}"/>
+	<legend><b>Vos commandes :</b></legend>
 	<ul>
 		<c:forEach var="l" items="${liste}">
 			<li>
@@ -37,14 +38,23 @@
 				Quantité: <b><c:out value="${l.quantite}"/></b>	
 				Prix total: <b><c:out value="${l.somme}"/></b>	
 				<br/>
-				<input type="button" value="Modifier"/>
-				<input type="submit" value="Retirer"/>
+				<a href="${pageContext.request.contextPath}/spring/selectProduit?produitId=${l.produit.id}">
+					<input type="submit" name="" value="Modifier"/>
+				</a>
+				<a href="${pageContext.request.contextPath}/spring/remove?artId=${l.id}">
+					<input type="submit" name="" value="Retirer"/>				
+				</a>				
 			</li>
 			<br/>
 		</c:forEach>
 	</ul>
-</fieldset>
+	</fieldset>
 
+<c:if test="${fn:length(liste)>0}">
+<form action="${pageContext.request.contextPath}/spring/commande" method="post">
+	<input type="submit" value="Je valide ma commande"/>
+</form>
+</c:if>
 
 <div class="content"><a href="${pageContext.request.contextPath}/spring/categories">Continuer mes achats</a></div>
 </body>

@@ -5,6 +5,8 @@ import java.util.List;
 import be.steformations.it.yaka.beans.ArticleImpl;
 import be.steformations.it.yaka.beans.CaracteristiqueImpl;
 import be.steformations.it.yaka.beans.CategorieImpl;
+import be.steformations.it.yaka.beans.ClientImpl;
+import be.steformations.it.yaka.beans.PaysImpl;
 import be.steformations.it.yaka.beans.ProduitImpl;
 import be.steformations.it.yaka.beans.ProprieteImpl;
 import be.steformations.it.yaka.beans.SousCategorieImpl;
@@ -100,11 +102,6 @@ public class JpaGestionnaireYaka {
 		System.out.println("JpaGestionnaireYaka.getProprietesbyProduitId()");
 		return this.em.createNamedQuery("getProprietesbyProduitId", ProprieteImpl.class).setParameter("id", id).getResultList();
 	}
-
-//	public java.util.List<ProprieteImpl> getDistinctProprietesByProduitId(int id){
-//		System.out.println("JpaGestionnaireYaka.getProprietesbyProduitId()");
-//		return this.em.createNamedQuery("getProprietesbyProduitId", ProprieteImpl.class).setParameter("id", id).getResultList();
-//	}
 	
 	public java.util.List<CaracteristiqueImpl> getCaracteristiquesbyProprieteId(int idProp, int idProd){
 		System.out.println("JpaGestionnaireYaka.getCaracteristiquesbyProprieteId()");
@@ -114,6 +111,53 @@ public class JpaGestionnaireYaka {
 	public ArticleImpl getPrixbyCaracteristiquesId (List<Integer> carId, int number){
 		System.out.println("JpaGestionnaireYaka.getPrixbyCaracteristiquesId()");
 		return this.em.createNamedQuery("getPrixbyCaracteristiquesId", ArticleImpl.class).setParameter("carId", carId).setParameter("number", number).getSingleResult();
+	}
+	
+	public java.util.List<PaysImpl> getAllPays(){
+		System.out.println("JpaGestionnaireYaka.getAllPays()");
+		return this.em.createNamedQuery("getAllPays", PaysImpl.class).getResultList();			
+	}
+	
+	public PaysImpl getPaysByAbrev(String abrev){
+		System.out.println("JpaGestionnaireYaka.getPaysByAbrev()");
+		return this.em.find(PaysImpl.class, abrev);
+	}	
+	
+	public ClientImpl addClient(String prenom, String nom, String adresse, String cp, String localite, String abrev, String telephone, String carte, java.util.Date echeance, String email){
+		System.out.println("JpaGestionnaireYaka.addClient()");
+		ClientImpl client = null;
+		PaysImpl pays = null;
+		if (prenom != null && nom != null && 
+			adresse != null && cp != null && localite != null &&
+		   (pays = this.getPaysByAbrev(abrev)) != null && 
+		   telephone != null && carte != null && echeance != null)
+		  {
+			try{
+				this.em.createNamedQuery("getClientByNomAndPrenomAndCarte", ClientImpl.class)
+				.setParameter("prenom", prenom).setParameter("nom", nom).setParameter("echeance", echeance)
+				.getSingleResult();
+			} catch(javax.persistence.NoResultException ok){
+				client = new ClientImpl();
+				client.setPrenom(prenom);
+				client.setNom(nom);
+				client.setAdresse(adresse);
+				client.setCp(cp);
+				client.setLocalite(localite);
+				client.setTelephone(telephone);
+				client.setCarte(carte);
+				client.setDateEcheance(echeance);
+				client.setEmail(email);
+				client.setPaysAbrev(pays);	
+				if (this.em.isJoinedToTransaction()){
+					this.em.persist(client);
+				} else {
+					this.em.getTransaction().begin();
+					this.em.persist(client);
+					this.em.getTransaction().commit();
+				}
+			}
+		}
+		return client;
 	}
 	
 }

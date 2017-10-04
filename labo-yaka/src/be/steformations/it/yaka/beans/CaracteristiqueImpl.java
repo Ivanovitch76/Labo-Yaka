@@ -57,11 +57,7 @@ public class CaracteristiqueImpl {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((article == null) ? 0 : article.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((produitId == null) ? 0 : produitId.hashCode());
-		result = prime * result + ((proprieteId == null) ? 0 : proprieteId.hashCode());
-		result = prime * result + ((valeur == null) ? 0 : valeur.hashCode());
 		return result;
 	}
 
@@ -74,30 +70,10 @@ public class CaracteristiqueImpl {
 		if (getClass() != obj.getClass())
 			return false;
 		CaracteristiqueImpl other = (CaracteristiqueImpl) obj;
-		if (article == null) {
-			if (other.article != null)
-				return false;
-		} else if (!article.equals(other.article))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
-			return false;
-		if (produitId == null) {
-			if (other.produitId != null)
-				return false;
-		} else if (!produitId.equals(other.produitId))
-			return false;
-		if (proprieteId == null) {
-			if (other.proprieteId != null)
-				return false;
-		} else if (!proprieteId.equals(other.proprieteId))
-			return false;
-		if (valeur == null) {
-			if (other.valeur != null)
-				return false;
-		} else if (!valeur.equals(other.valeur))
 			return false;
 		return true;
 	}
@@ -105,7 +81,7 @@ public class CaracteristiqueImpl {
 	@Override
 	public String toString() {
 		return "CaracteristiqueImpl [id=" + id + ", produitId=" + produitId + ", proprieteId=" + proprieteId
-				+ ", valeur=" + valeur + ", article=" + article + "]";
+				+ ", valeur=" + valeur + ", article=" + article.size() + "]";
 	}
 
 

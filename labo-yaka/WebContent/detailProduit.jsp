@@ -74,8 +74,8 @@
 			</c:forEach>
 		</c:if>
 
-		<br /> <input type="hidden" name="valid2" value="${c.id}" /> <input
-			type="submit" value="Ajouter au panier" />
+		<br /> 
+		<input type="submit" value="Ajouter au panier" />
 	</form>
 	<br/>
 

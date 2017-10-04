@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<h1>YAKA</h1>
+<h1>YAKA</h1>                                           
 
 <fieldset>
 <legend><b>Choisissez une catégorie</b></legend> 

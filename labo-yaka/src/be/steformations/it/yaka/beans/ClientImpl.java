@@ -10,7 +10,7 @@ public class ClientImpl {
 	private String adresse;
 	private String cp;
 	private String localite;
-	private PaysImpl paysAbrev;
+	private PaysImpl pays;
 	private String telephone;
 	private String carte;
 	private java.util.Date dateEcheance;
@@ -71,11 +71,11 @@ public class ClientImpl {
 	}
 
 	public PaysImpl getPaysAbrev() {
-		return paysAbrev;
+		return pays;
 	}
 
-	public void setPaysAbrev(PaysImpl paysAbrev) {
-		this.paysAbrev = paysAbrev;
+	public void setPaysAbrev(PaysImpl pays) {
+		this.pays = pays;
 	}
 
 	public String getTelephone() {
@@ -131,7 +131,7 @@ public class ClientImpl {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((localite == null) ? 0 : localite.hashCode());
 		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
-		result = prime * result + ((paysAbrev == null) ? 0 : paysAbrev.hashCode());
+		result = prime * result + ((pays == null) ? 0 : pays.hashCode());
 		result = prime * result + ((prenom == null) ? 0 : prenom.hashCode());
 		result = prime * result + ((telephone == null) ? 0 : telephone.hashCode());
 		return result;
@@ -191,10 +191,10 @@ public class ClientImpl {
 				return false;
 		} else if (!nom.equals(other.nom))
 			return false;
-		if (paysAbrev == null) {
-			if (other.paysAbrev != null)
+		if (pays == null) {
+			if (other.pays != null)
 				return false;
-		} else if (!paysAbrev.equals(other.paysAbrev))
+		} else if (!pays.equals(other.pays))
 			return false;
 		if (prenom == null) {
 			if (other.prenom != null)
@@ -212,7 +212,7 @@ public class ClientImpl {
 	@Override
 	public String toString() {
 		return "ClientImpl [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse + ", cp=" + cp
-				+ ", localite=" + localite + ", paysAbrev=" + paysAbrev + ", telephone=" + telephone + ", carte="
+				+ ", localite=" + localite + ", pays=" + pays + ", telephone=" + telephone + ", carte="
 				+ carte + ", dateEcheance=" + dateEcheance + ", email=" + email + ", commandes=" + commandes + "]";
 	}
 	

@@ -30,7 +30,7 @@ public class SousCategorieCtrl {
 			){
 		int catId = Integer.parseInt(id);
 		System.out.println("SousCategorieCtrl.listeSousCategories(" + catId + ")");
-		gestionnaire.addStatCategorie(catId);
+//		gestionnaire.addStatCategorie(catId);
 		attributs.put("listeSousCategories", gestionnaire.getSousCategoriesByCategorieId(catId));
 		return "/sousCategorie.jsp";
 	}

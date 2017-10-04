@@ -6,7 +6,6 @@ public class PaysImpl {
 	
 	private String abrev;
 	private String nom;
-	private List<ClientImpl> clients;
 	
 	public PaysImpl() {
 		super();
@@ -29,20 +28,12 @@ public class PaysImpl {
 		this.nom = nom;
 	}
 
-	public List<ClientImpl> getClients() {
-		return clients;
-	}
-
-	public void setClients(List<ClientImpl> clients) {
-		this.clients = clients;
-	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((abrev == null) ? 0 : abrev.hashCode());
-		result = prime * result + ((clients == null) ? 0 : clients.hashCode());
 		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
 		return result;
 	}
@@ -61,11 +52,6 @@ public class PaysImpl {
 				return false;
 		} else if (!abrev.equals(other.abrev))
 			return false;
-		if (clients == null) {
-			if (other.clients != null)
-				return false;
-		} else if (!clients.equals(other.clients))
-			return false;
 		if (nom == null) {
 			if (other.nom != null)
 				return false;
@@ -76,7 +62,7 @@ public class PaysImpl {
 
 	@Override
 	public String toString() {
-		return "PaysImpl [abrev=" + abrev + ", nom=" + nom + ", clients=" + clients + "]";
+		return "PaysImpl [abrev=" + abrev + ", nom=" + nom + "]";
 	}
 	
 	

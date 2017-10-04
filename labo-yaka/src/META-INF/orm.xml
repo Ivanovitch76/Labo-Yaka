@@ -48,6 +48,18 @@
 		</query>
 	</named-query>
 	
+	<named-query name="getClientByNomAndPrenomAndCarte">
+		<query>select c from Clients c where lower(c.prenom) = lower(:prenom) and lower(c.nom) = lower(:nom) and c.dateEcheance = :echeance</query>
+	</named-query>
+	
+	<named-query name="getAllPays">
+		<query>select p from Pays as p order by p.abrev</query>
+	</named-query>
+
+	<named-query name="getPaysByAbrev">
+		<query>select p from Pays as p where p.abrev = :abrev</query>
+	</named-query>
+	
 	<entity class="be.steformations.it.yaka.beans.CategorieImpl" name="Categorie">
 		<table name="categories" />
 		<attributes>
@@ -122,5 +134,51 @@
 			<transient name="somme"/>
 		</attributes>
 	</entity>	
+
+	<entity class="be.steformations.it.yaka.beans.LigneCommandeImpl" name="LignesCommandes">
+		<table name="lignes_commandes" />
+		<attributes>
+			<id name="id"><column name="lig_id"/><generated-value strategy="IDENTITY"/></id>
+			<basic name="quantite"><column name="lig_quantite"/></basic>
+			<many-to-one name="commande"><join-column name="lig_fk_commandes"/></many-to-one>
+			<one-to-one name="articles"><join-column name="lig_fk_prix"/></one-to-one>
+		</attributes>
+	</entity>
+
+	<entity class="be.steformations.it.yaka.beans.CommandeImpl" name="Commandes">
+		<table name="commandes" />
+		<attributes>
+			<id name="id"><column name="com_id"/><generated-value strategy="IDENTITY"/></id>
+			<basic name="dateCommande"><column name="com_date"/><temporal>DATE</temporal></basic>
+			<basic name="facture"><column name="com_facture"/></basic>
+			<many-to-one name="client"><join-column name="com_fk_clients"/></many-to-one>
+		</attributes>
+	</entity>
+	
+	<entity class="be.steformations.it.yaka.beans.ClientImpl" name="Clients">
+		<table name="clients" />
+		<attributes>
+			<id name="id"><column name="cli_id"/><generated-value strategy="IDENTITY"/></id>
+			<basic name="nom"><column name="cli_nom"/></basic>
+			<basic name="prenom"><column name="cli_prenom"/></basic>
+			<basic name="adresse"><column name="cli_adresse"/></basic>
+			<basic name="cp"><column name="cli_cp"/></basic>
+			<basic name="localite"><column name="cli_localite"/></basic>
+			<basic name="telephone"><column name="cli_telephone"/></basic>
+			<basic name="carte"><column name="cli_numero_carte"/></basic>
+			<basic name="dateEcheance"><column name="cli_date_echeance"/><temporal>DATE</temporal></basic>
+			<basic name="email"><column name="cli_email"/></basic>
+			<many-to-one name="pays"><join-column name="cli_fk_pays"/></many-to-one>
+			<one-to-many name="commandes" mapped-by="client"></one-to-many>
+		</attributes>
+	</entity>	
+
+	<entity class="be.steformations.it.yaka.beans.PaysImpl" name="Pays">
+		<table name="pays" />
+		<attributes>
+			<id name="abrev"><column name="pays_abreviation"/></id>
+			<basic name="nom"><column name="pays_nom"/></basic>
+		</attributes>
+	</entity>
 	
 </entity-mappings>

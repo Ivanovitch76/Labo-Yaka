@@ -66,14 +66,28 @@ public class ArticleCtrl {
 			System.out.println("caract: " + c.getProprieteId().getNom() + "=" + c.getValeur());
 		}
 		
-		
-//		attributs.put("produit", gestionnaire.getProduitbyId(prodId));
-//		attributs.put("prix", gestionnaire.getPrixbyCaracteristiquesId(carIds, ids.size()));
-//		attributs.put("prix", art);
 		attributs.put("liste", session.getListe());
 		
 		
 		return "/panier.jsp";
 	}
+	
+	@org.springframework.web.bind.annotation.RequestMapping("remove")
+	public String removeArticle(
+			@org.springframework.web.bind.annotation.RequestParam("artId") String id,
+			java.util.Map<String, Object> attributs){
+		System.out.println("ArticleCtrl.removeArticle()  id: " + id);
+		ArticleImpl art = new ArticleImpl();
+		int idArt = Integer.parseInt(id);
+		for (ArticleImpl article : session.getListe()) {
+			if(article.getId() == idArt){
+				art = article;
+			}
+		}
+		session.getListe().remove(art);
+		attributs.put("liste", session.getListe());
+		return "/panier.jsp";
+	}
+			
 	
 }
