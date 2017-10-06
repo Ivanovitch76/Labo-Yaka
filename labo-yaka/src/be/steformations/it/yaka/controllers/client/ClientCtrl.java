@@ -1,9 +1,12 @@
-package be.steformations.it.yaka.controllers;
+package be.steformations.it.yaka.controllers.client;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import be.steformations.it.yaka.beans.ArticleImpl;
+import be.steformations.it.yaka.beans.ClientImpl;
+import be.steformations.it.yaka.beans.CommandeImpl;
 import be.steformations.it.yaka.dao.JpaGestionnaireYaka;
 import be.steformations.it.yaka.session.SessionAchat;
 
@@ -51,7 +54,12 @@ public class ClientCtrl {
 			}
 		}
 		System.out.println("ClientCtrl.addClientAndCommandes() dateEch: " + dateEch);
-		gestionnaire.addClient(prenom, nom, adresse, cp, localite, abrev, telephone, carte, dateEch, email);
+		ClientImpl client = gestionnaire.addClient(prenom, nom, adresse, cp, localite, abrev, telephone, carte, dateEch, email);
+		CommandeImpl commande = gestionnaire.addCommande(client);
+		for (ArticleImpl article : session.getListe()) {
+			gestionnaire.addLigneCommande(commande, article);		
+		}
+		
 		
 		return "/end.jsp";
 	}

@@ -1,11 +1,17 @@
 package be.steformations.it.yaka.dao;
 
+import java.util.Date;
 import java.util.List;
+
+import javax.persistence.NoResultException;
 
 import be.steformations.it.yaka.beans.ArticleImpl;
 import be.steformations.it.yaka.beans.CaracteristiqueImpl;
 import be.steformations.it.yaka.beans.CategorieImpl;
 import be.steformations.it.yaka.beans.ClientImpl;
+import be.steformations.it.yaka.beans.CommandeImpl;
+import be.steformations.it.yaka.beans.ConnectImpl;
+import be.steformations.it.yaka.beans.LigneCommandeImpl;
 import be.steformations.it.yaka.beans.PaysImpl;
 import be.steformations.it.yaka.beans.ProduitImpl;
 import be.steformations.it.yaka.beans.ProprieteImpl;
@@ -23,11 +29,22 @@ public class JpaGestionnaireYaka {
 //		this.em = em;
 		this.em = javax.persistence.Persistence.createEntityManagerFactory("postgresql_eclipselink").createEntityManager();
 	}
-	
+
+//************************ CATEGORIES *********************************
 	public java.util.List<CategorieImpl> getAllCategories(){
 		System.out.println("JpaGestionnaireYaka.getAllCategories()");
 		return this.em.createNamedQuery("getAllCategories", CategorieImpl.class).getResultList();	
 	}
+	
+	public java.util.List<CategorieImpl> getAllCategoriesCroissant(){
+		System.out.println("JpaGestionnaireYaka.getAllCategoriesCroissant()");
+		return this.em.createNamedQuery("getAllCategoriesCroissant", CategorieImpl.class).getResultList();	
+	}	
+	
+	public java.util.List<CategorieImpl> getAllCategoriesDecroissant(){
+		System.out.println("JpaGestionnaireYaka.getAllCategoriesDecroissant()");
+		return this.em.createNamedQuery("getAllCategoriesDecroissant", CategorieImpl.class).getResultList();	
+	}	
 	
 	public CategorieImpl getCategoriebyId(int id){
 		System.out.println("JpaGestionnaireYaka.getCategoriebyId()");	
@@ -47,6 +64,38 @@ public class JpaGestionnaireYaka {
 		return categorie;
 	}
 	
+	public CategorieImpl addCategorie(String nom){
+		CategorieImpl categorie = null;
+		System.out.println("JpaGestionnaireYaka.addCategorie()");
+		if(nom != null && ! nom.isEmpty()){
+			categorie = new CategorieImpl();
+			categorie.setNom(nom);
+			categorie.setStat(0);
+			if (this.em.isJoinedToTransaction()){
+				this.em.persist(categorie);
+			} else {
+				this.em.getTransaction().begin();
+				this.em.persist(categorie);
+				this.em.getTransaction().commit();
+			}
+		}	
+		return categorie;
+	}
+	
+	public void removeCategorie(int id) {
+		CategorieImpl categorie = this.getCategoriebyId(id);
+		if (categorie != null) {
+			if (this.em.isJoinedToTransaction()) {
+				this.em.remove(categorie);
+			} else {
+				this.em.getTransaction().begin();
+				this.em.remove(categorie);
+				this.em.getTransaction().commit();				
+			}
+		}
+	}
+	
+	//************************ SOUS-CATEGORIES *********************************	
 	public java.util.List<SousCategorieImpl> getAllSousCategories(){
 		System.out.println("JpaGestionnaireYaka.getAllSousCategories()");	
 		return this.em.createNamedQuery("getAllSousCategories", SousCategorieImpl.class).getResultList();				
@@ -75,6 +124,7 @@ public class JpaGestionnaireYaka {
 		return sscategorie;
 	}
 	
+//************************ PRODUITS *********************************		
 	public java.util.List<ProduitImpl> getProduitsbySousCategorieId(int id){
 		System.out.println("JpaGestionnaireYaka.getProduitsbySousCategorieId()");	
 		return this.em.createNamedQuery("getProduitsbySousCategorieId", ProduitImpl.class).setParameter("id", id).getResultList();
@@ -84,6 +134,16 @@ public class JpaGestionnaireYaka {
 		System.out.println("JpaGestionnaireYaka.getProduitbyId()");	
 		return this.em.find(ProduitImpl.class, id);
 	}
+	
+	public java.util.List<ProduitImpl> getAllProduitsCroissant(){
+		System.out.println("JpaGestionnaireYaka.getAllProduitsCroissant()");
+		return this.em.createNamedQuery("getAllProduitsCroissant", ProduitImpl.class).getResultList();	
+	}	
+	
+	public java.util.List<ProduitImpl> getAllProduitsDecroissant(){
+		System.out.println("JpaGestionnaireYaka.getAllProduitsDecroissant()");
+		return this.em.createNamedQuery("getAllProduitsDecroissant", ProduitImpl.class).getResultList();	
+	}	
 	
 	public ProduitImpl addStatProduit(int id) {
 		ProduitImpl produit = getProduitbyId(id);
@@ -98,6 +158,8 @@ public class JpaGestionnaireYaka {
 		return produit;
 	}
 	
+	
+//************************ PROPRIETES *********************************		
 	public java.util.List<ProprieteImpl> getProprietesbyProduitId(int id){
 		System.out.println("JpaGestionnaireYaka.getProprietesbyProduitId()");
 		return this.em.createNamedQuery("getProprietesbyProduitId", ProprieteImpl.class).setParameter("id", id).getResultList();
@@ -133,9 +195,11 @@ public class JpaGestionnaireYaka {
 		   telephone != null && carte != null && echeance != null)
 		  {
 			try{
-				this.em.createNamedQuery("getClientByNomAndPrenomAndCarte", ClientImpl.class)
-				.setParameter("prenom", prenom).setParameter("nom", nom).setParameter("echeance", echeance)
+				client = this.em.createNamedQuery("getClientByNomAndPrenomAndTelephone", ClientImpl.class)
+				.setParameter("prenom", prenom).setParameter("nom", nom).setParameter("telephone", telephone)
 				.getSingleResult();
+				
+				
 			} catch(javax.persistence.NoResultException ok){
 				client = new ClientImpl();
 				client.setPrenom(prenom);
@@ -155,9 +219,64 @@ public class JpaGestionnaireYaka {
 					this.em.persist(client);
 					this.em.getTransaction().commit();
 				}
-			}
+			}	
 		}
 		return client;
 	}
 	
+//	public ClientImpl getClientByNomAndPrenomAndTelephone(String nom, String prenom, String telephone){
+//		System.out.println("JpaGestionnaireYaka.getClientByNomAndPrenomAndTelephone()");
+//		return this.em.createNamedQuery("getClientByNomAndPrenomAndTelephone", ClientImpl.class)
+//		.setParameter("prenom", prenom).setParameter("nom", nom).setParameter("telephone", telephone)
+//		.getSingleResult();
+//	}
+	
+	public CommandeImpl addCommande(ClientImpl client){
+		CommandeImpl commande = new CommandeImpl();
+		System.out.println("JpaGestionnaireYaka.addCommande()");
+		if(client.getId() != 0){
+			commande.setDateCommande(new java.util.Date(System.currentTimeMillis()));
+			commande.setFacture(false);
+			commande.setClient(client);
+			if (this.em.isJoinedToTransaction()){
+				this.em.persist(commande);
+			} else {
+				this.em.getTransaction().begin();
+				this.em.persist(commande);
+				this.em.getTransaction().commit();
+			}
+		}	
+		return commande;
+	}
+	
+	public LigneCommandeImpl addLigneCommande(CommandeImpl commande, ArticleImpl article){
+		System.out.println("JpaGestionnaireYaka.addLigneCommande()");
+		LigneCommandeImpl ligne = new LigneCommandeImpl();
+		if (commande.getId() != 0 && article.getId() != 0){
+			ligne.setCommande(commande);
+			ligne.setArticles(article);
+			ligne.setQuantite(article.getQuantite());
+			if (this.em.isJoinedToTransaction()){
+				this.em.persist(ligne);
+			} else {
+				this.em.getTransaction().begin();
+				this.em.persist(ligne);
+				this.em.getTransaction().commit();
+			}
+		}
+		return ligne;
+	}
+	
+	public ConnectImpl getConnectbyLoginAndPassword(String login, String password){
+		System.out.println("JpaGestionnaireYaka.getConnectbyLoginAndPassword()");	
+		try{
+		return this.em.createNamedQuery("getConnectbyLoginAndPassword", ConnectImpl.class)
+				.setParameter("login", login).setParameter("password", password).getSingleResult();
+		} catch (NoResultException e){
+			return null;
+		}
+				
+	}	
 }
+
+

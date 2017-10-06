@@ -9,6 +9,14 @@
 	<named-query name="getAllCategories">
 		<query>select c from Categorie as c order by c.id</query>
 	</named-query>
+	
+	<named-query name="getAllCategoriesCroissant">
+		<query>select c from Categorie as c order by c.stat</query>
+	</named-query>
+	
+	<named-query name="getAllCategoriesDecroissant">
+		<query>select c from Categorie as c order by c.stat desc</query>
+	</named-query>
 
 	<named-query name="getAllSousCategories">
 		<query>select sc from Sous_Categorie as sc order by sc.id</query>
@@ -24,6 +32,14 @@
 
 	<named-query name="getProduitbyId">
 		<query>select p from Produits as p where p.id = :id</query>
+	</named-query>
+	
+		<named-query name="getAllProduitsCroissant">
+		<query>select p from Produits as p order by p.stat</query>
+	</named-query>
+	
+	<named-query name="getAllProduitsDecroissant">
+		<query>select p from Produits as p order by p.stat desc</query>
 	</named-query>
 	
 	<named-query name="getProprietesbyProduitId">
@@ -48,8 +64,8 @@
 		</query>
 	</named-query>
 	
-	<named-query name="getClientByNomAndPrenomAndCarte">
-		<query>select c from Clients c where lower(c.prenom) = lower(:prenom) and lower(c.nom) = lower(:nom) and c.dateEcheance = :echeance</query>
+	<named-query name="getClientByNomAndPrenomAndTelephone">
+		<query>select c from Clients c where lower(c.prenom) = lower(:prenom) and lower(c.nom) = lower(:nom) and c.telephone = :telephone</query>
 	</named-query>
 	
 	<named-query name="getAllPays">
@@ -59,11 +75,15 @@
 	<named-query name="getPaysByAbrev">
 		<query>select p from Pays as p where p.abrev = :abrev</query>
 	</named-query>
+
+	<named-query name="getConnectbyLoginAndPassword">
+		<query>select c from Connect as c where c.login = :login and c.password = :password</query>
+	</named-query>	
 	
 	<entity class="be.steformations.it.yaka.beans.CategorieImpl" name="Categorie">
 		<table name="categories" />
 		<attributes>
-			<id name="id"><column name="cat_id"/></id>
+			<id name="id"><column name="cat_id"/><generated-value strategy="IDENTITY"/></id>
 			<basic name="nom"><column name="cat_nom"/></basic>
 			<basic name="stat"><column name="cat_stat"/></basic>
 		</attributes>
@@ -72,7 +92,7 @@
 	<entity class="be.steformations.it.yaka.beans.SousCategorieImpl" name="Sous_Categorie">
 		<table name="sous_categories" />
 		<attributes>
-			<id name="id"><column name="sscat_id"/></id>
+			<id name="id"><column name="sscat_id"/><generated-value strategy="IDENTITY"/></id>
 			<basic name="nom"><column name="sscat_nom"/></basic>
 			<basic name="stat"><column name="sscat_stat"/></basic>
 			<many-to-one name="categId"><join-column name="sscat_fk_categories"/></many-to-one>
@@ -82,7 +102,7 @@
 	<entity class="be.steformations.it.yaka.beans.ProduitImpl" name="Produits">
 		<table name="produits" />
 		<attributes>
-			<id name="id"><column name="prod_id"/></id>
+			<id name="id"><column name="prod_id"/><generated-value strategy="IDENTITY"/></id>
 			<basic name="nom"><column name="prod_nom"/></basic>
 			<basic name="vignette"><column name="prod_vignette"/></basic>
 			<basic name="image"><column name="prod_image"/></basic>
@@ -136,12 +156,12 @@
 	</entity>	
 
 	<entity class="be.steformations.it.yaka.beans.LigneCommandeImpl" name="LignesCommandes">
-		<table name="lignes_commandes" />
+		<table name="lignes_commande" />
 		<attributes>
 			<id name="id"><column name="lig_id"/><generated-value strategy="IDENTITY"/></id>
 			<basic name="quantite"><column name="lig_quantite"/></basic>
 			<many-to-one name="commande"><join-column name="lig_fk_commandes"/></many-to-one>
-			<one-to-one name="articles"><join-column name="lig_fk_prix"/></one-to-one>
+			<many-to-one name="articles"><join-column name="lig_fk_prix"/></many-to-one>
 		</attributes>
 	</entity>
 
@@ -178,6 +198,14 @@
 		<attributes>
 			<id name="abrev"><column name="pays_abreviation"/></id>
 			<basic name="nom"><column name="pays_nom"/></basic>
+		</attributes>
+	</entity>
+	
+	<entity class="be.steformations.it.yaka.beans.ConnectImpl" name="Connect">
+		<table name="connect" />
+		<attributes>
+			<id name="login"><column name="con_login"/></id>
+			<basic name="password"><column name="con_password"/></basic>
 		</attributes>
 	</entity>
 	

@@ -63,8 +63,8 @@
 				<fieldset>
 					<ul>
 						<li><b><c:out value="${sp.nom}" /></b></li>
-						<li><a
-							href="${pageContext.request.contextPath}/spring/sousProduit?ssprodId=${sp.id}">
+						<li>
+						<a href="${pageContext.request.contextPath}/spring/sousProduit?ssprodId=${sp.id}">
 								<img alt="$s{p.nom}"
 								src="${pageContext.request.contextPath}/images/${sp.vignette}" />
 						</a></li>

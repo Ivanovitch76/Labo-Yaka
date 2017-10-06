@@ -1,4 +1,4 @@
-package be.steformations.it.yaka.controllers;
+package be.steformations.it.yaka.controllers.client;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,7 @@ public class ProduitCtrl {
 		int prodId = Integer.parseInt(id);
 		System.out.println("ProduitCtrl.afficherProduit(" + prodId + ")");
 		
-		List<CaracByProprietes> carByProp = new ArrayList<>();
+//		List<CaracByProprietes> carByProp = new ArrayList<>();
 	
 		attributs.put("afficheUnProduit", gestionnaire.getProduitbyId(prodId));
 		attributs.put("afficherProprietes", listeCaracteristiques(prodId));
@@ -59,7 +59,7 @@ public class ProduitCtrl {
 			java.util.Map<String, Object> attributs
 			){
 		int ssprodId = Integer.parseInt(id);
-		List<CaracByProprietes> carByPropSs = new ArrayList<>();
+//		List<CaracByProprietes> carByPropSs = new ArrayList<>();
 		System.out.println("ProduitCtrl.configSousProduit(" + ssprodId + ")");
 	
 		attributs.put("afficheUnProduit", gestionnaire.getProduitbyId(ssprodId));
@@ -77,14 +77,6 @@ public class ProduitCtrl {
 			CaracByProprietes cbp = new CaracByProprietes();
 			List<CaracteristiqueImpl> listCar = new ArrayList<>();
 			listCar = gestionnaire.getCaracteristiquesbyProprieteId(prop.getId(), idp);
-			for (CaracteristiqueImpl car : listCar){
-				System.out.println("ProduitCtrl liste Caracteristiques: " + car.getArticle().size());
-				System.out.println("ProduitCtrl liste Caracteristiques: " + car.getArticle());
-				System.out.println("ProduitCtrl proprieteId: " + car.getProprieteId());
-				for(ArticleImpl art : car.getArticle()){
-					System.out.println("ProduitCtrl prix: " + art.getPrixHtva());
-				}
-			}
 			cbp.setProp(prop);
 			cbp.setCarac(listCar);
 			carByProp.add(cbp);

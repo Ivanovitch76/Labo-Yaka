@@ -1,4 +1,4 @@
-package be.steformations.it.yaka.controllers;
+package be.steformations.it.yaka.controllers.client;
 
 import be.steformations.it.yaka.dao.JpaGestionnaireYaka;
 import be.steformations.it.yaka.services.SpringLibraryService;

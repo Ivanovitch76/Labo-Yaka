@@ -1,4 +1,4 @@
-package be.steformations.it.yaka.controllers;
+package be.steformations.it.yaka.controllers.client;
 
 import java.util.ArrayList;
 import java.util.Iterator;
