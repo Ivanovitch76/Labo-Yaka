@@ -16,7 +16,7 @@
 <fieldset>
 <legend><b>Supprimez un produit</b></legend> 
 	<c:forEach var="c" items="${requestScope['listeCat']}">
-		<a href="${pageContext.request.contextPath}/spring/delCateg?cId=${c.id}">
+		<a href="${pageContext.request.contextPath}/spring/delProd?cId=${c.id}">
 		<c:out value="${c.nom}"/>
 		</a>
 		<br/>

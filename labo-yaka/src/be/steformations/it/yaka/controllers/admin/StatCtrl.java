@@ -37,7 +37,7 @@ public class StatCtrl {
 			java.util.Map<String, Object> attributs
 			){
 		attributs.put("croissant", gestionnaire.getAllProduitsCroissant());
-		return "/admin/statCategCroissant.jsp";
+		return "/admin/statProdCroissant.jsp";
 	}
 	
 	@org.springframework.web.bind.annotation.RequestMapping("statProdDecroissant")
@@ -46,7 +46,7 @@ public class StatCtrl {
 			){
 		
 		attributs.put("decroissant", gestionnaire.getAllProduitsDecroissant());
-		return "/admin/statCategDecroissant.jsp";
+		return "/admin/statProdDecroissant.jsp";
 	}
 	
 }

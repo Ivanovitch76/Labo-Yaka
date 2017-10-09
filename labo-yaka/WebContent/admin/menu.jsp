@@ -18,23 +18,11 @@
 		<fieldset>
 			<legend><b>Menu</b></legend> 
 			<a href="${pageContext.request.contextPath}/spring/categAdd">			
-				Ajouter des catégories 
+				Ajouter des catégories ou produits
 			</a>
 			<br/>
 			<a href="${pageContext.request.contextPath}/spring/categDel">		
-				Supprimer des catégories 
-			</a>	
-			<br/>
-			<a href="${pageContext.request.contextPath}/spring/categUpd">	
-				Modifier des catégories 
-			</a>	
-			<br/>
-			<a href="${pageContext.request.contextPath}/spring/prodAdd">	
-				Ajouter des produits
-			</a>	
-			<br/>
-			<a href="${pageContext.request.contextPath}/spring/prodDel">
-				Supprimer des produits
+				Supprimer des catégories ou produits
 			</a>	
 			<br/>
 			<a href="${pageContext.request.contextPath}/admin/statCateg.jsp">

@@ -85,12 +85,16 @@ public class JpaGestionnaireYaka {
 	public void removeCategorie(int id) {
 		CategorieImpl categorie = this.getCategoriebyId(id);
 		if (categorie != null) {
-			if (this.em.isJoinedToTransaction()) {
-				this.em.remove(categorie);
-			} else {
-				this.em.getTransaction().begin();
-				this.em.remove(categorie);
-				this.em.getTransaction().commit();				
+			try{
+				if (this.em.isJoinedToTransaction()) {
+					this.em.remove(categorie);
+				} else {
+					this.em.getTransaction().begin();
+					this.em.remove(categorie);
+					this.em.getTransaction().commit();				
+				}
+			} catch (NoResultException e) {
+				e.printStackTrace();
 			}
 		}
 	}
@@ -122,6 +126,42 @@ public class JpaGestionnaireYaka {
 			this.em.getTransaction().commit();
 		}
 		return sscategorie;
+	}
+	
+	public SousCategorieImpl addSsCategorie(String nom, int id){
+		SousCategorieImpl sscat = null;
+		System.out.println("JpaGestionnaireYaka.addSsCategorie()");
+		if(nom != null && ! nom.isEmpty()){
+			sscat = new SousCategorieImpl();
+			sscat.setNom(nom);
+			sscat.setStat(0);
+			sscat.setCategId(getCategoriebyId(id));
+			if (this.em.isJoinedToTransaction()){
+				this.em.persist(sscat);
+			} else {
+				this.em.getTransaction().begin();
+				this.em.persist(sscat);
+				this.em.getTransaction().commit();
+			}
+		}	
+		return sscat;
+	}
+	
+	public void removeSsCategorie(int id) {
+		SousCategorieImpl sscat = this.getSousCategoriebyId(id);
+		if (sscat != null) {
+			try{
+				if (this.em.isJoinedToTransaction()) {
+					this.em.remove(sscat);
+				} else {
+					this.em.getTransaction().begin();
+					this.em.remove(sscat);
+					this.em.getTransaction().commit();				
+				}
+			} catch (NoResultException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 //************************ PRODUITS *********************************		
@@ -156,6 +196,46 @@ public class JpaGestionnaireYaka {
 			this.em.getTransaction().commit();
 		}
 		return produit;
+	}
+	
+	public ProduitImpl addProduit(String nom, int id, String dc, String dl){
+		ProduitImpl prod = null;
+		System.out.println("JpaGestionnaireYaka.addCategorie()");
+		if(nom != null && ! nom.isEmpty()){
+			prod = new ProduitImpl();
+			prod.setNom(nom);
+			prod.setStat(0);
+			prod.setDescCourte(dc);
+			prod.setDescLongue(dl);
+			prod.setSousCateg(getSousCategoriebyId(id));
+			prod.setImage("img_i.jpg");
+			prod.setVignette("vign_v.jpg");
+			if (this.em.isJoinedToTransaction()){
+				this.em.persist(prod);
+			} else {
+				this.em.getTransaction().begin();
+				this.em.persist(prod);
+				this.em.getTransaction().commit();
+			}
+		}	
+		return prod;
+	}
+	
+	public void removeProduit(int id) {
+		ProduitImpl prod = this.getProduitbyId(id);
+		if (prod != null) {
+			try{
+				if (this.em.isJoinedToTransaction()) {
+					this.em.remove(prod);
+				} else {
+					this.em.getTransaction().begin();
+					this.em.remove(prod);
+					this.em.getTransaction().commit();				
+				}
+			} catch (NoResultException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	

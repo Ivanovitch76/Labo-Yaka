@@ -13,27 +13,12 @@
 
 <h1>YAKA ADMINISTRATEUR</h1>                                           
 
-<c:set var="l" value="${requestScope['listeCat']}"/>
 <fieldset>
-<legend><b>Supprimez une catégorie</b></legend> 
-	<c:forEach var="c" items="${l}">
-		<a href="${pageContext.request.contextPath}/spring/delCateg?cId=${c.categorie.id}">
-			<b><c:out value="${c.categorie.nom}"/></b>
-		</a>
-		<br/>
-		<c:forEach var="sc" items="${c.prodBySousCat}">
-			<a href="${pageContext.request.contextPath}/spring/delSsCateg?scId=${sc.sousCatgorie.id}">
-				&emsp;<i><c:out value="${sc.sousCatgorie.nom}"/></i>
-			</a>	
-			<br/>
-			<c:forEach var="p" items="${sc.produits}">
-				<a href="${pageContext.request.contextPath}/spring/delProd?pId=${p.id}">
-					&emsp;&emsp;<c:out value="${p.nom}"/>
-				</a>	
-				<br/>			
-			</c:forEach>
-		</c:forEach>
-		<br/>
+<legend><b>Produits consultés (résultat décroissant)</b></legend> 
+	<c:forEach var="p" items="${requestScope['decroissant']}">
+		<c:out value="${p.nom}"/>
+		<c:out value="${p.stat}"></c:out>
+				<br/>
 	</c:forEach>
 </fieldset>
 

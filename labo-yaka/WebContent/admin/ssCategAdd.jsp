@@ -14,23 +14,22 @@
 <h1>YAKA ADMINISTRATEUR</h1>                                           
 
 <fieldset>
-<legend><b>Entrez un nouveau produit</b></legend> 
-	<form action="${pageContext.request.contextPath}/spring/addProd" method="post">
-		Nouvelle valeur: <input type="text" name="prod"/>
-		<input type="hidden" value="${requestScope['idSsCatMere']}" name="scid"/>
+<legend><b>Entrez une nouvelle sous-catégorie</b></legend> 
+	<form action="${pageContext.request.contextPath}/spring/addSsCateg" method="post">
+		Nouvelle valeur: <input type="text" name="sscat"/>
+		<input type="hidden" value="${requestScope['idCatMere']}" name="cid"/>
 		<br/>
-		Description courte: <input type="text" name="descCourte"/>
-		<br/>
-		Description longue: <input type="text" name="descLongue"/>
-		<br/>
+
 		<input type="submit" name="" value="Ajouter">
 	</form>
 </fieldset>
 
 <fieldset>
-<legend><b>Produits existants</b></legend>
-	<c:forEach var="p" items="${requestScope['listeProd']}">
-		<c:out value="${p.nom}"/>
+<legend><b>Sélectionnez une sous-catégorie existante pour accéder à ses produits</b></legend>
+	<c:forEach var="sc" items="${requestScope['listeSsCat']}">
+		<a href="${pageContext.request.contextPath}/spring/affProd?sscatId=${sc.id}">
+			<c:out value="${sc.nom}"/>					
+		</a>
 		<br/>
 	</c:forEach>
 </fieldset>

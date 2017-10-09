@@ -24,9 +24,11 @@
 </fieldset>
 
 <fieldset>
-<legend><b>Catégories existantes</b></legend>
+<legend><b>Sélectionnez une catégorie existante pour accéder à ses sous-catégories</b></legend>
 	<c:forEach var="c" items="${requestScope['listeCat']}">
-		<c:out value="${c.nom}"/>
+		<a href="${pageContext.request.contextPath}/spring/affSsCateg?catId=${c.id}">
+			<c:out value="${c.nom}"/>					
+		</a>
 		<br/>
 	</c:forEach>
 </fieldset>
