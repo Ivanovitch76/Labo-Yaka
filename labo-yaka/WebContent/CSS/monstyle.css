@@ -5,3 +5,32 @@ a{
 ul{
 	list-style-type: none;	
 }
+#yaka{
+	width:300px;
+	margin-left: 420px;
+}
+#panier{
+	width : 70px;
+	float: right;
+}
+#home{
+	width: 70px;
+}
+
+#yakaStart{
+	width:300px;
+}
+#shop{
+	width:400px;
+	margin-left: 400px;
+}
+#accueil{
+	text-align: center;
+	font-family: Arial;
+}
+fieldset {
+	font-family: Arial;
+}
+#prop {
+	font-family: Arial;
+}

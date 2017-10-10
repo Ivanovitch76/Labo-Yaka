@@ -28,7 +28,7 @@ public class ClientCtrl {
 			){
 		System.out.println("ClientCtrl.afficherFormulaire()");
 		attributs.put("listePays", gestionnaire.getAllPays());
-		return "/client.jsp";
+		return "/client/client.jsp";
 	}
 	
 	@org.springframework.web.bind.annotation.RequestMapping("addClient")
@@ -61,7 +61,7 @@ public class ClientCtrl {
 		}
 		
 		
-		return "/end.jsp";
+		return "/client/end.jsp";
 	}
 	
 	

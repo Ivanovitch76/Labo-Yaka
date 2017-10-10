@@ -33,7 +33,7 @@ public class ProduitCtrl {
 		System.out.println("ProduitCtrl.listeProduits(" + ssCatId + ")");
 //		gestionnaire.addStatSousCategorie(ssCatId);
 		attributs.put("listeProduits", gestionnaire.getProduitsbySousCategorieId(ssCatId));
-		return "/produit.jsp";
+		return "/client/produit.jsp";
 	}
 	
 	@org.springframework.web.bind.annotation.RequestMapping("selectProduit")
@@ -50,7 +50,7 @@ public class ProduitCtrl {
 		attributs.put("afficherProprietes", listeCaracteristiques(prodId));
 
 
-		return "/detailProduit.jsp";
+		return "/client/detailProduit.jsp";
 	}	
 	
 	@org.springframework.web.bind.annotation.RequestMapping("sousProduit")
@@ -64,7 +64,7 @@ public class ProduitCtrl {
 	
 		attributs.put("afficheUnProduit", gestionnaire.getProduitbyId(ssprodId));
 		attributs.put("afficherProprietes", listeCaracteristiques(ssprodId));
-		return "/detailProduit.jsp";
+		return "/client/detailProduit.jsp";
 		
 	}
 	

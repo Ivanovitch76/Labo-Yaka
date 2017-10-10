@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<h1>YAKA</h1>
+<img id="yaka" alt="Yaka" src="${pageContext.request.contextPath}/images/site/Yaka.JPG"/>
 
 <h1>MERCI POUR VOTRE COMMANDE!</h1>
 <h1>Vous souhaitez encore faire des achats? Cliquez sur le bouton ci-dessous.</h1>

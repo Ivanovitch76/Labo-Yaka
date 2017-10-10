@@ -11,18 +11,19 @@
 </head>
 <body>
 
-<h1>YAKA</h1> 
+<img id="yaka" alt="Yaka" src="${pageContext.request.contextPath}/images/site/Yaka.JPG"/>	
 
 
 	<fieldset>
 
 	<c:set var="liste" value="${requestScope['liste']}"/>
 	<legend><b>Vos commandes :</b></legend>
+	<c:if test="${fn:length(liste) > 0 }">
 	<ul>
 		<c:forEach var="l" items="${liste}">
 			<li>
 				<b><c:out value="${l.produit.nom}"/></b>
-				<img alt="${l.produit.nom}" src="${pageContext.request.contextPath}/images/${l.produit.vignette}"/>	
+				<img alt="${l.produit.nom}" src="${pageContext.request.contextPath}/images/catalogue/${l.produit.vignette}"/>	
 				<br/>
 				Caractéristiques : 
 				<c:forEach var="c" items="${l.caracteristiques}">
@@ -48,6 +49,10 @@
 			<br/>
 		</c:forEach>
 	</ul>
+	</c:if>
+	<c:if test="${fn:length(liste) == 0 }">
+		<p>Vous n'avez aucun article pour le moment</p>
+	</c:if>
 	</fieldset>
 
 <c:if test="${fn:length(liste)>0}">
@@ -56,6 +61,8 @@
 </form>
 </c:if>
 
-<div class="content"><a href="${pageContext.request.contextPath}/spring/categories">Continuer mes achats</a></div>
+<form action="${pageContext.request.contextPath}/spring/categories" method="post">
+	<input type="submit" value="Continuer mes achats"/>
+</form>
 </body>
 </html>

@@ -69,7 +69,7 @@ public class ArticleCtrl {
 		attributs.put("liste", session.getListe());
 		
 		
-		return "/panier.jsp";
+		return "/client/panier.jsp";
 	}
 	
 	@org.springframework.web.bind.annotation.RequestMapping("remove")
@@ -86,8 +86,13 @@ public class ArticleCtrl {
 		}
 		session.getListe().remove(art);
 		attributs.put("liste", session.getListe());
-		return "/panier.jsp";
+		return "/client/panier.jsp";
 	}
-			
+	
+	@org.springframework.web.bind.annotation.RequestMapping("panierView")
+	public String afficherPanier(java.util.Map<String, Object> attributs){
+		attributs.put("liste", session.getListe());
+		return "/client/panier.jsp";
+	}
 	
 }

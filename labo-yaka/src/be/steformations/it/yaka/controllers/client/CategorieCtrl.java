@@ -24,7 +24,7 @@ public class CategorieCtrl {
 		attributs.put("listeCategories", gestionnaire.getAllCategories());
 //		attributs.put("listeCategories", service.getAllCateg());
 		
-		return "/categorie.jsp";
+		return "/client/categorie.jsp";
 	}
 	
 	

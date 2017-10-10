@@ -10,8 +10,14 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/monstyle.css" />
 </head>
 <body>
-
-<h1>YAKA</h1> 
+<a href="${pageContext.request.contextPath}/client/accueil.jsp">
+	<img id="home" alt="Home" src="${pageContext.request.contextPath}/images/site/home.jpg"/>	
+</a>
+<img id="yaka" alt="Yaka" src="${pageContext.request.contextPath}/images/site/Yaka.JPG"/>	
+ 
+<a href=${pageContext.request.contextPath}/spring/panierView>
+	<img id="panier" alt="Panier" src="${pageContext.request.contextPath}/images/site/panier2.jpg"/>	
+</a>
 
 <fieldset>
 <legend><b>Détail du produit</b></legend>
@@ -23,7 +29,7 @@
 		<h2><c:out value="${p.nom}"/></h2> 
 	</li>
 	<li>	
-		<img alt="${p.nom}" src="${pageContext.request.contextPath}/images/${p.image}"/>	
+		<img alt="${p.nom}" src="${pageContext.request.contextPath}/images/catalogue/${p.image}"/>	
 	</li>
 	<li>		
 		<c:out escapeXml="false" value="${p.descLongue}"/> 									
@@ -32,6 +38,7 @@
 </fieldset>
 <br/>
 
+<div id="prop">
 <c:set var="prop" value="${requestScope['afficherProprietes']}"/>
 	<form action="${pageContext.request.contextPath}/spring/panier"
 		method="post">
@@ -66,7 +73,7 @@
 						<li>
 						<a href="${pageContext.request.contextPath}/spring/sousProduit?ssprodId=${sp.id}">
 								<img alt="$s{p.nom}"
-								src="${pageContext.request.contextPath}/images/${sp.vignette}" />
+								src="${pageContext.request.contextPath}/images/catalogue/${sp.vignette}" />
 						</a></li>
 						<li><c:out value="${sp.descCourte}" /></li>
 					</ul>
@@ -78,7 +85,7 @@
 		<input type="submit" value="Ajouter au panier" />
 	</form>
 	<br/>
+</div>
 
-<div class="content"><a href="${pageContext.request.contextPath}/spring/categories">Retour à la page d'accueil</a></div>
 </body>
 </html>

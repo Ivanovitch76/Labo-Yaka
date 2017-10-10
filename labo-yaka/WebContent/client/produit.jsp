@@ -10,8 +10,15 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/monstyle.css" />
 </head>
 <body>
+<a href="${pageContext.request.contextPath}/client/accueil.jsp">
+	<img id="home" alt="Home" src="${pageContext.request.contextPath}/images/site/home.jpg"/>	
+</a>>
 
-<h1>YAKA</h1>
+<img id="yaka" alt="Yaka" src="${pageContext.request.contextPath}/images/site/Yaka.JPG"/>	
+ 
+<a href=${pageContext.request.contextPath}/spring/panierView>
+	<img id="panier" alt="Panier" src="${pageContext.request.contextPath}/images/site/panier2.jpg"/>	
+</a>
 
 <fieldset>
 <legend><b>Choisissez un produit</b></legend>  
@@ -25,7 +32,7 @@
 		</li>
 		<li>	
 			<a href="${pageContext.request.contextPath}/spring/selectProduit?produitId=${p.id}">
-				<img alt="${p.nom}" src="${pageContext.request.contextPath}/images/${p.vignette}"/>	
+				<img alt="${p.nom}" src="${pageContext.request.contextPath}/images/catalogue/${p.vignette}"/>	
 						
 			</a>	
 		</li>
@@ -38,6 +45,6 @@
 </ul>
 </fieldset>
 
-<div class="content"><a href="${pageContext.request.contextPath}/spring/categories">Retour à la page d'accueil</a></div>
+
 </body>
 </html>

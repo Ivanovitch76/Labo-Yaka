@@ -11,7 +11,15 @@
 </head>
 <body>
 
-<h1>YAKA</h1>
+<a href="${pageContext.request.contextPath}/client/accueil.jsp">
+	<img id="home" alt="Home" src="${pageContext.request.contextPath}/images/site/home.jpg"/>	
+</a>
+
+<img id="yaka" alt="Yaka" src="${pageContext.request.contextPath}/images/site/Yaka.JPG"/>	
+ 
+<a href=${pageContext.request.contextPath}/spring/panierView>
+	<img id="panier" alt="Panier" src="${pageContext.request.contextPath}/images/site/panier2.jpg"/>	
+</a>
 
 <fieldset>
 <legend><b>Choisissez une sous-catégorie</b></legend>
@@ -28,6 +36,5 @@
 </ul>
 </fieldset>
 
-<div class="content"><a href="${pageContext.request.contextPath}/spring/categories">Retour à la page d'accueil</a></div>
 </body>
 </html>
